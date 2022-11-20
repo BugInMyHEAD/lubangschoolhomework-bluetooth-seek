@@ -3,8 +3,8 @@ package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek.di
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.AbstractViewController
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewController
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewState
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewTargetQualifier
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekFailure
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekQualifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,12 +53,5 @@ object BluetoothSeekModuleProvider {
         viewController: ViewController<Boolean, Unit, BluetoothSeekFailure>
     ): Observable<ViewState<Boolean, Unit, BluetoothSeekFailure>> =
         viewController.output
-
-}
-
-annotation class BluetoothSeekQualifier {
-
-    @ViewTargetQualifier
-    annotation class MainView
 
 }
