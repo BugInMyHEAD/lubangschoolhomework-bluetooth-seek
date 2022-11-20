@@ -4,9 +4,9 @@ interface Logger {
 
     fun errorFromRepository(repository:Any, t: Throwable)
 
-    fun d(uuid: String, message: String)
-    fun i(uuid: String, message: String)
-    fun w(uuid: String, message: String)
-    fun e(uuid: String, message: String)
+    fun d(uuid: String, message: Any?)
+    fun i(uuid: String, message: Any?)
+    fun w(uuid: String, message: Any?)
+    fun e(uuid: String, message: Any?)
 
 }
