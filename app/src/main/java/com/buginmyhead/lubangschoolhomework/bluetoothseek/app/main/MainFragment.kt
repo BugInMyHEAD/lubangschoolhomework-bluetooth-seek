@@ -10,10 +10,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.app.databinding.FragmentMainBinding
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.Logger
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewState
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekFailure
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekUseCase
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

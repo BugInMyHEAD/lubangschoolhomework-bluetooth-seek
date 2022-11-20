@@ -1,7 +1,7 @@
 package com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek
 
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.Logger
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewController
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject

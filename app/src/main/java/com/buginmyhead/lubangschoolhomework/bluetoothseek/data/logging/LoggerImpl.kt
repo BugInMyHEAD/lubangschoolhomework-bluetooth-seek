@@ -1,7 +1,7 @@
 package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.logging
 
 import android.util.Log
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.Logger
 
 object LoggerImpl : Logger {
 

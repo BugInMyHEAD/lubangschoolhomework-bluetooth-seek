@@ -1,4 +1,4 @@
-package com.buginmyhead.lubangschoolhomework.bluetoothseek.logging
+package com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture
 
 interface Logger {
 
