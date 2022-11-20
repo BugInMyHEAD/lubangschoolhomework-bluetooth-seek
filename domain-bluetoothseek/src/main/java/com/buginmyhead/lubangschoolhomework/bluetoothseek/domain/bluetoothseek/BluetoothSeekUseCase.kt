@@ -56,6 +56,7 @@ class BluetoothSeekUseCase @Inject constructor(
             is NoBluetoothSupportException -> BluetoothSeekFailure.UNSUPPORTED
             is BluetoothPermissionException -> BluetoothSeekFailure.NO_PERMISSION
             is BluetoothRadioOffException -> BluetoothSeekFailure.RADIO_OFF
+            is NoPairedDeviceException -> BluetoothSeekFailure.NO_PAIRED_DEVICES
             else -> BluetoothSeekFailure.UNKNOWN
         })
     }

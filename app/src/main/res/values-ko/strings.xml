@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error">오류</string>
+    <string name="unsupported">이 기기는 블루투스 기능을 지원하지 않아요.</string>
+    <string name="no_permission">블루투스 권한을 거부하셔서 스캔할 수 없어요.</string>
+    <string name="radio_off">블루투스 기능이 꺼져있어요. 블루투스 기능을 켜주세요.</string>
+    <string name="no_paired_devices">이 기기와 페어링된 기기가 한 대도 없어요. 블루투스 페어링을 해주세요.</string>
+
+</resources>

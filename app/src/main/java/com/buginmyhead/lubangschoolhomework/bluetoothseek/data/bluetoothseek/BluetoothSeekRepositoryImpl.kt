@@ -7,8 +7,10 @@ import android.bluetooth.BluetoothProfile
 import android.content.Context
 import androidx.core.content.getSystemService
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothPermissionException
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothRadioOffException
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekRepository
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.NoBluetoothSupportException
+import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.NoPairedDeviceException
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
@@ -59,10 +61,14 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
         }
 
         try {
-            adapter.bondedDevices.forEach {
+            if (!adapter.isEnabled) throw BluetoothRadioOffException()
+            val bondedDevices = adapter.bondedDevices
+            if (bondedDevices.isEmpty()) throw NoPairedDeviceException()
+            bondedDevices.forEach {
                 gattConnections += it.connectGatt(context, false, gattCallback)
             }
         } catch (exc: SecurityException) {
+            isDiscovering = false
             throw BluetoothPermissionException(exc)
         }
     }

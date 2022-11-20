@@ -9,10 +9,19 @@
 
         <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main.MainViewModel" />
 
+        <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekFailure" />
+
+        <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.app.DomainToResource" />
+
         <variable
             name="viewModel"
             type="MainViewModel"
             />
+
+<!--        <variable-->
+<!--            name="fromResources"-->
+<!--            type="FromResources"-->
+<!--            />-->
 
     </data>
 
@@ -32,6 +41,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+            android:text="@{ DomainToResource.from(context).stringResFromBluetoothSeekFailure(viewModel.bluetoothSeekLiveData.failure) }"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

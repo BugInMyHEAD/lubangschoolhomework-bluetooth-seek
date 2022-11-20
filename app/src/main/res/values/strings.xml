@@ -1,5 +1,12 @@
 <resources>
 
-    <string name="app_name">Bluetooth Seek</string>
+    <string name="app_name" translatable="false">Bluetooth Seek</string>
+    <string name="empty" translatable="false" />
+
+    <string name="error">Error</string>
+    <string name="unsupported">This device doesn\'t support Bluetooth functionality.</string>
+    <string name="no_permission">I can\'t scan nearby paired devices because you deny Bluetooth permission.</string>
+    <string name="radio_off">Bluetooth functionality has been turned off. Please turn on Bluetooth functionality.</string>
+    <string name="no_paired_devices">There are no devices you let it paired with this device. Please do Bluetooth pairing.</string>
 
 </resources>
