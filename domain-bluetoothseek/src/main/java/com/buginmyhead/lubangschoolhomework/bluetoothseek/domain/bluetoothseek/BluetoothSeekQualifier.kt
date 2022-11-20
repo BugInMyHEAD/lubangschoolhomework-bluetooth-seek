@@ -1,10 +1,10 @@
 package com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek
 
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewTargetQualifier
+import javax.inject.Qualifier
 
 annotation class BluetoothSeekQualifier {
 
-    @ViewTargetQualifier
+    @Qualifier
     annotation class MainView
 
 }
