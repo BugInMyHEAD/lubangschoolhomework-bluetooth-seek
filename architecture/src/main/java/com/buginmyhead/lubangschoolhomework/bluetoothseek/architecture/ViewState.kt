@@ -6,7 +6,7 @@ sealed class ViewState<S, L, F> {
     open val loading: L? = null
     open val failure: F? = null
 
-    fun showState(presenter: Presenter<S, L, F>)  = when (this) {
+    fun present(presenter: Presenter<S, L, F>)  = when (this) {
         is Success -> presenter.onSuccess(success)
         is Loading -> presenter.onLoading(loading)
         is Failure -> presenter.onFailure(failure)
