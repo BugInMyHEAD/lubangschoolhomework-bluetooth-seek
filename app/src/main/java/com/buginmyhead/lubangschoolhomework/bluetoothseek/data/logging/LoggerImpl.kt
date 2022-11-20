@@ -2,31 +2,31 @@ package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.logging
 
 import android.util.Log
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
-import javax.inject.Inject
 
-class LoggerImpl @Inject constructor() : Logger {
+object LoggerImpl : Logger {
 
     override fun errorFromRepository(repository: Any, t: Throwable) = e(
-        """
-        Error from repository "${repository::class}"
-        ${t.stackTrace.contentToString()}
-        """.trimIndent()
+        uuid = "636a7246-b176-4e70-93a3-526c67a2db4a",
+        message = """
+            Error from repository "${repository::class}"
+            ${t.stackTrace.contentToString()}
+        """.trimIndent(),
     )
 
-    override fun d(message: String) {
-        Log.d(null, message)
+    override fun d(uuid: String, message: String) {
+        Log.d(null, "UUID=$uuid\n$message")
     }
 
-    override fun i(message: String) {
-        Log.i(null, message)
+    override fun i(uuid: String, message: String) {
+        Log.i(null, "UUID=$uuid\n$message")
     }
 
-    override fun w(message: String) {
-        Log.w(null, message)
+    override fun w(uuid: String, message: String) {
+        Log.w(null, "UUID=$uuid\n$message")
     }
 
-    override fun e(message: String) {
-        Log.e(null, message)
+    override fun e(uuid: String, message: String) {
+        Log.e(null, "UUID=$uuid\n$message")
     }
 
 }

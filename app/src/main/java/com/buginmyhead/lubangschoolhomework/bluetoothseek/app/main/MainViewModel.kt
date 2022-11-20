@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     init {
         bluetoothSeekOutput.subscribe(_bluetoothSeekLiveData::postValue).also(compositeDisposable::add)
 
-        bluetoothSeekUseCase()
+        bluetoothSeekUseCase.start()
     }
 
     override fun onCleared() {

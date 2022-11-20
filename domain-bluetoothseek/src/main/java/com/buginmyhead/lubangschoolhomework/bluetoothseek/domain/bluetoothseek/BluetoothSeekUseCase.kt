@@ -15,12 +15,16 @@ class BluetoothSeekUseCase @Inject constructor(
     private val logger: Logger,
 ) {
 
-    operator fun invoke() {
-        Observable.interval(0L, 5L, TimeUnit.SECONDS)
+    private var disposable: Disposable? = null
+
+    fun start() {
+        bluetoothSeekRepository.startDiscovery()
+        Observable.interval(0L, 20L, TimeUnit.SECONDS)
             .switchMapSingle { bluetoothSeekRepository.isAnyPairInRange() }
             .subscribe(object : Observer<Boolean> {
 
                 override fun onSubscribe(d: Disposable) {
+                    disposable = d
                 }
 
                 override fun onNext(t: Boolean) {
@@ -33,6 +37,7 @@ class BluetoothSeekUseCase @Inject constructor(
                 override fun onError(e: Throwable) {
                     logger.errorFromRepository(bluetoothSeekRepository, e)
                     mainViewController.switchToFailure(when (e) {
+                        is NoBluetoothSupportException -> BluetoothSeekFailure.UNSUPPORTED
                         is BluetoothPermissionException -> BluetoothSeekFailure.NO_PERMISSION
                         is BluetoothRadioOffException -> BluetoothSeekFailure.RADIO_OFF
                         else -> BluetoothSeekFailure.UNKNOWN
@@ -40,6 +45,12 @@ class BluetoothSeekUseCase @Inject constructor(
                 }
 
             })
+    }
+
+    fun stop() {
+        disposable?.dispose()
+        disposable = null
+        bluetoothSeekRepository.stopDiscovery()
     }
 
 }
