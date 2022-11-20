@@ -1,6 +1,5 @@
 package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek
 
-import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothManager
@@ -13,10 +12,8 @@ import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.N
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
+import java.util.Collections
 import javax.inject.Inject
 
 class BluetoothSeekRepositoryImpl @Inject constructor(
@@ -29,9 +26,13 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
     private val _anyPairInRange = BehaviorSubject.create<Boolean>()
     override fun anyPairInRange(): Observable<Boolean> = _anyPairInRange
 
-    private var disposable: Disposable? = null
+    private var isDiscovering = false
+
+    private val gattConnections: MutableSet<BluetoothGatt> = Collections.synchronizedSet(mutableSetOf())
 
     override fun startDiscovery() {
+        isDiscovering = true
+
         val adapter = bluetoothManager?.adapter ?: throw NoBluetoothSupportException()
 
         val gattCallback = object : BluetoothGattCallback() {
@@ -42,8 +43,13 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
                     _anyPairInRange.onNext(
                         (bluetoothManager.getConnectedDevices(BluetoothProfile.GATT) intersect adapter.bondedDevices).isNotEmpty()
                     )
-                    if (newState == BluetoothProfile.STATE_CONNECTED) {
+                    if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                         gatt.close()
+                        gattConnections -= gatt
+                        Thread.sleep(5000L)
+                        if (isDiscovering) {
+                            gattConnections += gatt.device.connectGatt(context, false, this)
+                        }
                     }
                 } catch (exc: SecurityException) {
                     throw BluetoothPermissionException(exc)
@@ -52,35 +58,25 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
 
         }
 
-        Observable.interval(0L, 10L, TimeUnit.SECONDS)
-            .subscribe(object : Observer<Long> {
-
-                @SuppressLint("MissingPermission")
-                override fun onNext(t: Long) {
-                    adapter.bondedDevices.forEach {
-                        it.connectGatt(context, false, gattCallback)
-                    }
-                }
-
-                override fun onError(e: Throwable) {
-                    if (e is SecurityException) {
-                        throw BluetoothPermissionException(e)
-                    }
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                    disposable = d
-                }
-
-                override fun onComplete() {
-                }
-
-            })
+        try {
+            adapter.bondedDevices.forEach {
+                gattConnections += it.connectGatt(context, false, gattCallback)
+            }
+        } catch (exc: SecurityException) {
+            throw BluetoothPermissionException(exc)
+        }
     }
 
     override fun stopDiscovery() {
-        disposable?.dispose()
-        disposable = null
+        isDiscovering = false
+        gattConnections.forEach {
+            try {
+                it.close()
+            } catch (exc: SecurityException) {
+                throw BluetoothPermissionException(exc)
+            }
+        }
+        gattConnections.clear()
     }
 
 }
