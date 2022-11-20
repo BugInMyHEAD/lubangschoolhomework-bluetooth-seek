@@ -10,7 +10,7 @@ android {
 	compileSdk 32
 
 	defaultConfig {
-		applicationId "com.buginmyhead.lubangschoolhomework.weather"
+		applicationId "com.buginmyhead.lubangschoolhomework.bluetoothseek.app"
 		minSdk 23
 		targetSdk 32
 		versionCode 1
