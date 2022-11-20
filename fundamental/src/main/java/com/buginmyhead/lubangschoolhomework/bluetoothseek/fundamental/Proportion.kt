@@ -3,6 +3,12 @@ package com.buginmyhead.lubangschoolhomework.bluetoothseek.fundamental
 @JvmInline
 value class Proportion private constructor(val value: Float) {
 
+    fun inverted(): Proportion = when (this) {
+        ZERO -> ONE
+        ONE -> ZERO
+        else -> Proportion(1F - value)
+    }
+
     companion object {
 
         val ZERO = Proportion(0F)
