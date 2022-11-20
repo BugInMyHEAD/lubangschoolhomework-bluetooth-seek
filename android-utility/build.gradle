@@ -1,22 +1,17 @@
 plugins {
-	id 'com.android.application'
+	id 'com.android.library'
 	id 'org.jetbrains.kotlin.android'
-	id 'com.google.dagger.hilt.android'
-	id 'kotlin-kapt'
-	id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
 	compileSdk 32
 
 	defaultConfig {
-		applicationId "com.buginmyhead.lubangschoolhomework.bluetoothseek.app"
 		minSdk 23
 		targetSdk 32
-		versionCode 1
-		versionName "1.0"
 
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+		consumerProguardFiles "consumer-rules.pro"
 	}
 
 	buildTypes {
@@ -40,17 +35,17 @@ android {
 }
 
 dependencies {
-	implementation project(':android-utility')
-	implementation project(':domain-bluetoothseek')
 
-	implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0'
-	implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
-	implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit2Version"
-	implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
+	api 'androidx.core:core-ktx:1.8.0'  // 1.9.0 needs AGP 7.3.0, which also requires newer Android Studio
+	api 'androidx.appcompat:appcompat:1.5.1'
+	api 'com.google.android.material:material:1.6.1'
+	api 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-	// Hilt
-	implementation "com.google.dagger:hilt-android:$hiltVersion"
-	kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+	// ViewModel
+	api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+	api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+	api 'androidx.activity:activity-ktx:1.5.1'  // 1.6.0 needs Android SDK 33
+	api 'androidx.fragment:fragment-ktx:1.5.3'
 
 	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'  // 1.2.0 needs AGP 7.3.0, which also requires newer Android Studio
 
