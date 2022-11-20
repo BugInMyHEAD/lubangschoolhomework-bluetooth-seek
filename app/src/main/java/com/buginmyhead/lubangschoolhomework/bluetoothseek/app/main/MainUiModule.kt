@@ -1,4 +1,4 @@
-package com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main.di
+package com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main
 
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.AbstractViewController
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewController
@@ -8,18 +8,18 @@ import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.B
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object MainUiModuleProvider {
 
     @Provides
-    @ViewModelScoped
+    @ActivityRetainedScoped
     @BluetoothSeekQualifier.MainView
     fun provideBluetoothSeekViewController(
     ): ViewController<Boolean, Unit, BluetoothSeekFailure> = object : AbstractViewController<Boolean, Unit, BluetoothSeekFailure>() {
@@ -29,7 +29,7 @@ object MainUiModuleProvider {
     }
 
     @Provides
-    @ViewModelScoped
+    @ActivityRetainedScoped
     @BluetoothSeekQualifier.MainView
     fun provideBluetoothSeekOutput(
         @BluetoothSeekQualifier.MainView

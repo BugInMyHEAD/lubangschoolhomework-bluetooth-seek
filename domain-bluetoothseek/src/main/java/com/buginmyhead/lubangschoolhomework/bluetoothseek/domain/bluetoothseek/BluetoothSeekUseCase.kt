@@ -2,10 +2,8 @@ package com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek
 
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewController
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.logging.Logger
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class BluetoothSeekUseCase @Inject constructor(
@@ -23,8 +21,7 @@ class BluetoothSeekUseCase @Inject constructor(
         } catch (e: Throwable) {
             handleError(e)
         }
-        Observable.interval(0L, 20L, TimeUnit.SECONDS)
-            .switchMap { bluetoothSeekRepository.anyPairInRange() }
+        bluetoothSeekRepository.anyPairInRange()
             .subscribe(object : Observer<Boolean> {
 
                 override fun onSubscribe(d: Disposable) {
