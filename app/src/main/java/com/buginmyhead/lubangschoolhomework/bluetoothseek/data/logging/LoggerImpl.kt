@@ -5,11 +5,11 @@ import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.Logger
 
 object LoggerImpl : Logger {
 
-    override fun errorFromRepository(repository: Any, t: Throwable) = e(
+    override fun errorFromRepository(repository: Any, t: Throwable) = w(
         uuid = "636a7246-b176-4e70-93a3-526c67a2db4a",
         message = """
             Error from repository "${repository::class}"
-            ${t.stackTrace.contentToString()}
+            ${t.stackTraceToString()}
         """.trimIndent(),
     )
 
