@@ -7,6 +7,21 @@
 
     <data>
 
+<!--        <import type="kotlin.Unit" />-->
+<!--        <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekFailure" />-->
+<!--        <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewState" />-->
+
+        <import type="com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main.MainViewModel" />
+
+<!--        <variable-->
+<!--            name="viewState"-->
+<!--            type="ViewState&lt;Boolean,Unit,BluetoothSeekFailure&gt;"-->
+<!--            />-->
+        <variable
+            name="viewModel"
+            type="MainViewModel"
+            />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +30,17 @@
         android:layout_height="match_parent"
         tools:context=".app.main.MainFragment"
         >
+
+        <com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main.RadarAnimationView
+            android:id="@+id/radar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:color="@{ viewModel.bluetoothSeekLiveData.success ? 0xFF00FF00 : 0xFFFF0000 }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/message"

@@ -16,6 +16,7 @@ class BluetoothSeekUseCase @Inject constructor(
     private var disposable: Disposable? = null
 
     fun start() {
+        mainViewController.switchToLoading(Unit)
         try {
             bluetoothSeekRepository.startDiscovery()
         } catch (e: Throwable) {

@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.app.FromResources
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.app.databinding.FragmentMainBinding
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewState
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekFailure
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,22 +28,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.bluetoothSeekLiveData.observe(viewLifecycleOwner) {
-            it.showState(object : ViewState.Presenter<Boolean, Unit, BluetoothSeekFailure> {
-
-                override fun onSuccess(data: Boolean) {
-                    binding.message.text = data.toString()
-                }
-
-                override fun onLoading(data: Unit) {
-                }
-
-                override fun onFailure(data: BluetoothSeekFailure) {
-                    binding.message.text = data.toString()
-                }
-
-            })
-        }
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
     }
 
     override fun onDestroyView() {
