@@ -33,9 +33,11 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
     private val gattConnections: MutableSet<BluetoothGatt> = Collections.synchronizedSet(mutableSetOf())
 
     override fun startDiscovery() {
+        stopDiscovery()
         isDiscovering = true
 
         val adapter = bluetoothManager?.adapter ?: throw NoBluetoothSupportException()
+        if (!adapter.isEnabled) throw BluetoothRadioOffException()
 
         val gattCallback = object : BluetoothGattCallback() {
 
@@ -61,7 +63,6 @@ class BluetoothSeekRepositoryImpl @Inject constructor(
         }
 
         try {
-            if (!adapter.isEnabled) throw BluetoothRadioOffException()
             val bondedDevices = adapter.bondedDevices
             if (bondedDevices.isEmpty()) throw NoPairedDeviceException()
             bondedDevices.forEach {

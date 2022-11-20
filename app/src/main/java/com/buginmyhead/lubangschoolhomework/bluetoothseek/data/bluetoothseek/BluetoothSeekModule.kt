@@ -1,6 +1,5 @@
-package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek.di
+package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek
 
-import com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek.BluetoothSeekRepositoryImpl
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.BluetoothSeekRepository
 import dagger.Binds
 import dagger.Module

@@ -58,6 +58,7 @@ class MainFragment : Fragment() {
                 }
 
                 override fun onFailure(data: BluetoothSeekFailure) {
+                    logger.d("4f1b305c-eb97-41ab-9d10-49813ec929e1", data)
                     when (data) {
                         BluetoothSeekFailure.NO_PERMISSION -> {
                             val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) Manifest.permission.BLUETOOTH_CONNECT
@@ -80,10 +81,6 @@ class MainFragment : Fragment() {
     companion object {
 
         fun newInstance() = MainFragment()
-
-        fun onFailure(data: BluetoothSeekFailure) {
-
-        }
 
     }
 

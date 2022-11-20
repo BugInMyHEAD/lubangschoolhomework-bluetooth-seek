@@ -19,28 +19,28 @@ class BluetoothSeekUseCase @Inject constructor(
         mainViewController.switchToLoading(Unit)
         try {
             bluetoothSeekRepository.startDiscovery()
+            bluetoothSeekRepository.anyPairInRange()
+                .subscribe(object : Observer<Boolean> {
+
+                    override fun onSubscribe(d: Disposable) {
+                        disposable = d
+                    }
+
+                    override fun onNext(t: Boolean) {
+                        mainViewController.switchToSuccess(t)
+                    }
+
+                    override fun onComplete() {
+                    }
+
+                    override fun onError(e: Throwable) {
+                        handleError(e)
+                    }
+
+                })
         } catch (e: Throwable) {
             handleError(e)
         }
-        bluetoothSeekRepository.anyPairInRange()
-            .subscribe(object : Observer<Boolean> {
-
-                override fun onSubscribe(d: Disposable) {
-                    disposable = d
-                }
-
-                override fun onNext(t: Boolean) {
-                    mainViewController.switchToSuccess(t)
-                }
-
-                override fun onComplete() {
-                }
-
-                override fun onError(e: Throwable) {
-                    handleError(e)
-                }
-
-            })
     }
 
     fun stop() {

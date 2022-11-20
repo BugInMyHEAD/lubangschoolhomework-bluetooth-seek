@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     internal lateinit var bluetoothSeekUseCase: BluetoothSeekUseCase
 
+    private val bluetoothBroadcastReceiver = BluetoothBroadcastReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,11 +28,13 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         bluetoothSeekUseCase.start()
+        registerReceiver(bluetoothBroadcastReceiver, BluetoothBroadcastReceiver.intentFilter)
     }
 
     override fun onStop() {
-        super.onStop()
+        unregisterReceiver(bluetoothBroadcastReceiver)
         bluetoothSeekUseCase.stop()
+        super.onStop()
     }
 
 }
