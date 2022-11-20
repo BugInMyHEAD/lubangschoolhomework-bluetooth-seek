@@ -1,4 +1,4 @@
-package com.buginmyhead.lubangschoolhomework.bluetoothseek.data.bluetoothseek.di
+package com.buginmyhead.lubangschoolhomework.bluetoothseek.app.main.di
 
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.AbstractViewController
 import com.buginmyhead.lubangschoolhomework.bluetoothseek.architecture.ViewController
@@ -8,35 +8,18 @@ import com.buginmyhead.lubangschoolhomework.bluetoothseek.domain.bluetoothseek.B
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
-import javax.inject.Singleton
+
 
 @Module
-@InstallIn(SingletonComponent::class)
-interface BluetoothSeekModuleBinder {
-
-    // @Binds
-    // @Singleton
-    // fun bindThreeDayWeatherInfoRepository(
-    //     impl: ThreeDayWeatherInfoRepositoryImpl
-    // ): ReadOnlyRepository<ThreeDayWeatherInfo>
-
-    // @Binds
-    // @Singleton
-    // fun bindRefreshWeatherInfoUseCase(
-    //     impl: RefreshMainWeatherInfoUseCaseImpl
-    // ): RefreshMainWeatherInfoUseCase
-
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-object BluetoothSeekModuleProvider {
+@InstallIn(ViewModelComponent::class)
+object MainUiModuleProvider {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     @BluetoothSeekQualifier.MainView
     fun provideBluetoothSeekViewController(
     ): ViewController<Boolean, Unit, BluetoothSeekFailure> = object : AbstractViewController<Boolean, Unit, BluetoothSeekFailure>() {
@@ -46,7 +29,7 @@ object BluetoothSeekModuleProvider {
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     @BluetoothSeekQualifier.MainView
     fun provideBluetoothSeekOutput(
         @BluetoothSeekQualifier.MainView
