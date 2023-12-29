@@ -4,14 +4,13 @@ plugins {
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
 	api 'io.reactivex.rxjava3:rxjava:3.1.5'
 	api 'javax.inject:javax.inject:1'
 
-	testApi 'junit:junit:4.13.2'
-	testApi 'io.mockk:mockk:1.13.2'
+	testApi "junit:junit:$junitVersion"
 }

@@ -4,14 +4,11 @@ plugins {
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
 	api project(':architecture')
 	api project(':fundamental')
-
-	testApi 'junit:junit:4.13.2'
-	testApi 'io.mockk:mockk:1.13.2'
 }
